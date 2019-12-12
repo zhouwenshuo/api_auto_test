@@ -1,0 +1,944 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>API AUTO TEST REPORT</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+<style type="text/css" media="screen">
+body        { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px; font-size: 120%; }
+table       { font-size: 100%; }
+/* -- heading ---------------------------------------------------------------------- */
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+/* -- report ------------------------------------------------------------------------ */
+#total_row  { font-weight: bold; }
+.passCase   { color: #5cb85c; }
+.failCase   { color: #d9534f; font-weight: bold; }
+.errorCase  { color: #f0ad4e; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+</style>
+
+</head>
+<body >
+<script language="javascript" type="text/javascript">
+output_list = Array();
+/*level 调整增加只显示通过用例的分类 --Findyou
+0:Summary //all hiddenRow
+1:Failed  //pt hiddenRow, ft none
+2:Pass    //pt none, ft hiddenRow
+3:All     //pt none, ft none
+*/
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level == 2 || level == 0 ) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level < 2) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+    }
+    //加入【详细】切换文字变化 --Findyou
+    detail_class=document.getElementsByClassName('detail');
+	//console.log(detail_class.length)
+	if (level == 3) {
+		for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="收起"
+		}
+	}
+	else{
+			for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="详细"
+		}
+	}
+}
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        //ID修改 点 为 下划线 -Findyou
+        tid0 = 't' + cid.substr(1) + '_' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        //修改点击无法收起的BUG，加入【详细】切换文字变化 --Findyou
+        if (toHide) {
+            document.getElementById(tid).className = 'hiddenRow';
+            document.getElementById(cid).innerText = "详细"
+        }
+        else {
+            document.getElementById(tid).className = '';
+            document.getElementById(cid).innerText = "收起"
+        }
+    }
+}
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+</script>
+<div class='heading'>
+<h1 style="font-family: Microsoft YaHei">API AUTO TEST REPORT</h1>
+<p class='attribute'><strong>测试人员 : </strong> zhouws</p>
+<p class='attribute'><strong>开始时间 : </strong> 2019-11-08 17:48:33</p>
+<p class='attribute'><strong>合计耗时 : </strong> 0:00:18.670062</p>
+<p class='attribute'><strong>测试结果 : </strong> 共 32，通过 32，通过率= 100.00%</p>
+
+<p class='description'>接口自动化测试报告</p>
+</div>
+
+
+<p id='show_detail_line'>
+<a class="btn btn-primary" href='javascript:showCase(0)'>概要{ 100.00% }</a>
+<a class="btn btn-danger" href='javascript:showCase(1)'>失败{ 0 }</a>
+<a class="btn btn-success" href='javascript:showCase(2)'>通过{ 32 }</a>
+<a class="btn btn-info" href='javascript:showCase(3)'>所有{ 32 }</a>
+</p>
+<table id='result_table' class="table table-condensed table-bordered table-hover">
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 16px;">
+    <td>用例集/测试用例</td>
+    <td>总计</td>
+    <td>通过</td>
+    <td>失败</td>
+    <td>错误</td>
+    <td>详细</td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>TestLogin.TestHttp</td>
+    <td class="text-center">6</td>
+    <td class="text-center">6</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c1',6)" class="detail" id='c1'>详细</a></td>
+</tr>
+
+<tr id='pt1_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_1__1___post请求正确用户名密码登录_____member_login______mobilephone___13412340005___pwd___123456789______post______status__1__code___10001___data__null__msg___登录成功____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_1'>通过</button>
+    <div id='div_pt1_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_1'>通过</button>
+    <div id='div_pt1_1' class="collapse in" align="left">
+    <pre>
+    
+pt1_1: 第1条用例：post请求正确用户名密码登录
+请求报文： {"mobilephone":"13412340005","pwd":"123456789"}
+预期结果： {"status":1,"code":"10001","data":null,"msg":"登录成功"}
+实际结果： {"status":1,"code":"10001","data":null,"msg":"登录成功"}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_2__2___get请求正确用户名密码登录_____member_login______mobilephone___13412340005___pwd___123456789______get______status__1__code___10001___data__null__msg___登录成功____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_2'>通过</button>
+    <div id='div_pt1_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_2'>通过</button>
+    <div id='div_pt1_2' class="collapse in" align="left">
+    <pre>
+    
+pt1_2: 第2条用例：get请求正确用户名密码登录
+请求报文： {"mobilephone":"13412340005","pwd":"123456789"}
+预期结果： {"status":1,"code":"10001","data":null,"msg":"登录成功"}
+实际结果： {"status":1,"code":"10001","data":null,"msg":"登录成功"}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_3__3___错误用户名_正确密码_____member_login______mobilephone___9999___pwd___123456789______post______status__0__code___20111___data__null__msg___用户名或密码错误____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_3'>通过</button>
+    <div id='div_pt1_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_3'>通过</button>
+    <div id='div_pt1_3' class="collapse in" align="left">
+    <pre>
+    
+pt1_3: 第3条用例：错误用户名，正确密码
+请求报文： {"mobilephone":"9999","pwd":"123456789"}
+预期结果： {"status":0,"code":"20111","data":null,"msg":"用户名或密码错误"}
+实际结果： {"status":0,"code":"20111","data":null,"msg":"用户名或密码错误"}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_4__4___正确用户名_错误密码_____member_login______mobilephone___13412340005___pwd___9999______post______status__0__code___20111___data__null__msg___用户名或密码错误____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_4'>通过</button>
+    <div id='div_pt1_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_4'>通过</button>
+    <div id='div_pt1_4' class="collapse in" align="left">
+    <pre>
+    
+pt1_4: 第4条用例：正确用户名，错误密码
+请求报文： {"mobilephone":"13412340005","pwd":"9999"}
+预期结果： {"status":0,"code":"20111","data":null,"msg":"用户名或密码错误"}
+实际结果： {"status":0,"code":"20111","data":null,"msg":"用户名或密码错误"}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_5__5___用户名为空_____member_login______mobilephone______pwd___123456789______post______status__0__code___20103___data__null__msg___手机号不能为空____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_5'>通过</button>
+    <div id='div_pt1_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_5'>通过</button>
+    <div id='div_pt1_5' class="collapse in" align="left">
+    <pre>
+    
+pt1_5: 第5条用例：用户名为空
+请求报文： {"mobilephone":"","pwd":"123456789"}
+预期结果： {"status":0,"code":"20103","data":null,"msg":"手机号不能为空"}
+实际结果： {"status":0,"code":"20103","data":null,"msg":"手机号不能为空"}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_6__6___密码为空_____member_login______mobilephone___13412340005___pwd_________post______status__0__code___20103___data__null__msg___密码不能为空____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_6'>通过</button>
+    <div id='div_pt1_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_6'>通过</button>
+    <div id='div_pt1_6' class="collapse in" align="left">
+    <pre>
+    
+pt1_6: 第6条用例：密码为空
+请求报文： {"mobilephone":"13412340005","pwd":""}
+预期结果： {"status":0,"code":"20103","data":null,"msg":"密码不能为空"}
+实际结果： {"status":0,"code":"20103","data":null,"msg":"密码不能为空"}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>TestRecharge.TestHttp</td>
+    <td class="text-center">18</td>
+    <td class="text-center">18</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c2',18)" class="detail" id='c2'>详细</a></td>
+</tr>
+
+<tr id='pt2_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_01__1___不登录_充值_____member_recharge______mobilephone___13412340005___amount___1000______post______status__0__code__null__data__null__msg___抱歉_请先登录_____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_1'>通过</button>
+    <div id='div_pt2_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_1'>通过</button>
+    <div id='div_pt2_1' class="collapse in" align="left">
+    <pre>
+    
+pt2_1: 第1条用例：不登录，充值
+预期结果： {'status': 0, 'code': None, 'data': None, 'msg': '抱歉，请先登录。'}
+实际结果： {'status': 0, 'code': None, 'data': None, 'msg': '抱歉，请先登录。'}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_02__2___post请求正确用户名密码登录_____member_login______mobilephone___13412340005___pwd___123456789______post______status__1__code___10001___data__null__msg___登录成功____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_2'>通过</button>
+    <div id='div_pt2_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_2'>通过</button>
+    <div id='div_pt2_2' class="collapse in" align="left">
+    <pre>
+    
+pt2_2: 第2条用例：post请求正确用户名密码登录
+预期结果： {'status': 1, 'code': '10001', 'data': None, 'msg': '登录成功'}
+实际结果： {'status': 1, 'code': '10001', 'data': None, 'msg': '登录成功'}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_03__3___正常充值_____member_recharge______mobilephone___13412340005___amount___1000______get______status__1__code___10001___data____id__1007__regname______pwd___25F9E794323B453885F5181F1B624D0B___mobilephone___13412340005___leaveamount___1000_00___type___1___regtime___2019_04_15_17_31_34_0____msg___充值成功____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_3'>通过</button>
+    <div id='div_pt2_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_3'>通过</button>
+    <div id='div_pt2_3' class="collapse in" align="left">
+    <pre>
+    
+pt2_3: 第3条用例：正常充值
+预期结果： {'status': 1, 'code': '10001', 'data': {'id': 1007, 'regname': '', 'pwd': '25F9E794323B453885F5181F1B624D0B', 'mobilephone': '13412340005', 'leaveamount': '1000.00', 'type': '1', 'regtime': '2019-04-15 17:31:34.0'}, 'msg': '充值成功'}
+实际结果： {'status': 1, 'code': '10001', 'data': {'id': 179111, 'regname': '', 'pwd': '25F9E794323B453885F5181F1B624D0B', 'mobilephone': '13412340005', 'leaveamount': '6008201.26', 'type': '1', 'regtime': '2019-11-05 18:38:55.0'}, 'msg': '充值成功'}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_04__4___手机号为空_____member_recharge______mobilephone______amount___1000______post______status__0__code___20103___data__null__msg___手机号不能为空____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_4'>通过</button>
+    <div id='div_pt2_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_4'>通过</button>
+    <div id='div_pt2_4' class="collapse in" align="left">
+    <pre>
+    
+pt2_4: 第4条用例：手机号为空
+预期结果： {'status': 0, 'code': '20103', 'data': None, 'msg': '手机号不能为空'}
+实际结果： {'status': 0, 'code': '20103', 'data': None, 'msg': '手机号不能为空'}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_05__5___金额为空_____member_recharge______mobilephone___13412340005___amount_________post______status__0__code___20115___data__null__msg___请输入金额____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_5'>通过</button>
+    <div id='div_pt2_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_5'>通过</button>
+    <div id='div_pt2_5' class="collapse in" align="left">
+    <pre>
+    
+pt2_5: 第5条用例：金额为空
+预期结果： {'status': 0, 'code': '20115', 'data': None, 'msg': '请输入金额'}
+实际结果： {'status': 0, 'code': '20115', 'data': None, 'msg': '请输入金额'}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_06__6___全空_____member_recharge______mobilephone______amount_________post______status__0__code___20103___data__null__msg___手机号不能为空____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_6'>通过</button>
+    <div id='div_pt2_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_6'>通过</button>
+    <div id='div_pt2_6' class="collapse in" align="left">
+    <pre>
+    
+pt2_6: 第6条用例：全空
+预期结果： {'status': 0, 'code': '20103', 'data': None, 'msg': '手机号不能为空'}
+实际结果： {'status': 0, 'code': '20103', 'data': None, 'msg': '手机号不能为空'}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_07__7___金额为0_____member_recharge______mobilephone___13412340005___amount___0______post______status__1__code___10001___data____id__1007__regname______pwd___25F9E794323B453885F5181F1B624D0B___mobilephone___13412340005___leaveamount___8000_00___type___1___regtime___2019_04_15_17_31_34_0____msg___充值成功____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_7'>通过</button>
+    <div id='div_pt2_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_7'>通过</button>
+    <div id='div_pt2_7' class="collapse in" align="left">
+    <pre>
+    
+pt2_7: 第7条用例：金额为0
+预期结果： {'status': 1, 'code': '10001', 'data': {'id': 1007, 'regname': '', 'pwd': '25F9E794323B453885F5181F1B624D0B', 'mobilephone': '13412340005', 'leaveamount': '8000.00', 'type': '1', 'regtime': '2019-04-15 17:31:34.0'}, 'msg': '充值成功'}
+实际结果： {'status': 1, 'code': '10001', 'data': {'id': 179111, 'regname': '', 'pwd': '25F9E794323B453885F5181F1B624D0B', 'mobilephone': '13412340005', 'leaveamount': '6008201.26', 'type': '1', 'regtime': '2019-11-05 18:38:55.0'}, 'msg': '充值成功'}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_08__8___金额为0_01_____member_recharge______mobilephone___13412340005___amount___0_01______post______status__1__code___10001___data____id__1007__regname______pwd___25F9E794323B453885F5181F1B624D0B___mobilephone___13412340005___leaveamount___8000_01___type___1___regtime___2019_04_15_17_31_34_0____msg___充值成功____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_8'>通过</button>
+    <div id='div_pt2_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_8'>通过</button>
+    <div id='div_pt2_8' class="collapse in" align="left">
+    <pre>
+    
+pt2_8: 第8条用例：金额为0.01
+预期结果： {'status': 1, 'code': '10001', 'data': {'id': 1007, 'regname': '', 'pwd': '25F9E794323B453885F5181F1B624D0B', 'mobilephone': '13412340005', 'leaveamount': '8000.01', 'type': '1', 'regtime': '2019-04-15 17:31:34.0'}, 'msg': '充值成功'}
+实际结果： {'status': 1, 'code': '10001', 'data': {'id': 179111, 'regname': '', 'pwd': '25F9E794323B453885F5181F1B624D0B', 'mobilephone': '13412340005', 'leaveamount': '6008201.27', 'type': '1', 'regtime': '2019-11-05 18:38:55.0'}, 'msg': '充值成功'}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_09__9___金额为499999_99_____member_recharge______mobilephone___13412340005___amount___499999_99______post______status__1__code___10001___data____id__1007__regname______pwd___25F9E794323B453885F5181F1B624D0B___mobilephone___13412340005___leaveamount___8000_01___type___1___regtime___2019_04_15_17_31_34_0____msg___充值成功____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_9' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_9'>通过</button>
+    <div id='div_pt2_9' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_9' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_9'>通过</button>
+    <div id='div_pt2_9' class="collapse in" align="left">
+    <pre>
+    
+pt2_9: 第9条用例：金额为499999.99
+预期结果： {'status': 1, 'code': '10001', 'data': {'id': 1007, 'regname': '', 'pwd': '25F9E794323B453885F5181F1B624D0B', 'mobilephone': '13412340005', 'leaveamount': '8000.01', 'type': '1', 'regtime': '2019-04-15 17:31:34.0'}, 'msg': '充值成功'}
+实际结果： {'status': 1, 'code': '10001', 'data': {'id': 179111, 'regname': '', 'pwd': '25F9E794323B453885F5181F1B624D0B', 'mobilephone': '13412340005', 'leaveamount': '6508201.26', 'type': '1', 'regtime': '2019-11-05 18:38:55.0'}, 'msg': '充值成功'}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_10__10___金额为500000_____member_recharge______mobilephone___13412340005___amount___500000______post______status__1__code___10001___data____id__1007__regname______pwd___25F9E794323B453885F5181F1B624D0B___mobilephone___13412340005___leaveamount___8000_01___type___1___regtime___2019_04_15_17_31_34_0____msg___充值成功____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_10' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_10'>通过</button>
+    <div id='div_pt2_10' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_10' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_10'>通过</button>
+    <div id='div_pt2_10' class="collapse in" align="left">
+    <pre>
+    
+pt2_10: 第10条用例：金额为500000
+预期结果： {'status': 1, 'code': '10001', 'data': {'id': 1007, 'regname': '', 'pwd': '25F9E794323B453885F5181F1B624D0B', 'mobilephone': '13412340005', 'leaveamount': '8000.01', 'type': '1', 'regtime': '2019-04-15 17:31:34.0'}, 'msg': '充值成功'}
+实际结果： {'status': 1, 'code': '10001', 'data': {'id': 179111, 'regname': '', 'pwd': '25F9E794323B453885F5181F1B624D0B', 'mobilephone': '13412340005', 'leaveamount': '7008201.26', 'type': '1', 'regtime': '2019-11-05 18:38:55.0'}, 'msg': '充值成功'}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_11__11___金额为500000_01_____member_recharge______mobilephone___13412340005___amount___500000_01______post______status__0__code___20117___data__null__msg___请输入范围在0到50万之间的正数金额____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_11' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_11'>通过</button>
+    <div id='div_pt2_11' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_11' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_11'>通过</button>
+    <div id='div_pt2_11' class="collapse in" align="left">
+    <pre>
+    
+pt2_11: 第11条用例：金额为500000.01
+预期结果： {'status': 0, 'code': '20117', 'data': None, 'msg': '请输入范围在0到50万之间的正数金额'}
+实际结果： {'status': 0, 'code': '20117', 'data': None, 'msg': '请输入范围在0到50万之间的正数金额'}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_12__12___金额为负数_____member_recharge______mobilephone___13412340005___amount____1______post______status__0__code___20117___data__null__msg___请输入范围在0到50万之间的正数金额____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_12' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_12'>通过</button>
+    <div id='div_pt2_12' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_12' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_12'>通过</button>
+    <div id='div_pt2_12' class="collapse in" align="left">
+    <pre>
+    
+pt2_12: 第12条用例：金额为负数
+预期结果： {'status': 0, 'code': '20117', 'data': None, 'msg': '请输入范围在0到50万之间的正数金额'}
+实际结果： {'status': 0, 'code': '20117', 'data': None, 'msg': '请输入范围在0到50万之间的正数金额'}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_13__13___金额1位小数点_____member_recharge______mobilephone___13412340005___amount___100_1______post______status__1__code___10001___data____id__1007__regname______pwd___25F9E794323B453885F5181F1B624D0B___mobilephone___13412340005___leaveamount___508100_11___type___1___regtime___2019_04_15_17_31_34_0____msg___充值成功____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_13' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_13'>通过</button>
+    <div id='div_pt2_13' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_13' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_13'>通过</button>
+    <div id='div_pt2_13' class="collapse in" align="left">
+    <pre>
+    
+pt2_13: 第13条用例：金额1位小数点
+预期结果： {'status': 1, 'code': '10001', 'data': {'id': 1007, 'regname': '', 'pwd': '25F9E794323B453885F5181F1B624D0B', 'mobilephone': '13412340005', 'leaveamount': '508100.11', 'type': '1', 'regtime': '2019-04-15 17:31:34.0'}, 'msg': '充值成功'}
+实际结果： {'status': 1, 'code': '10001', 'data': {'id': 179111, 'regname': '', 'pwd': '25F9E794323B453885F5181F1B624D0B', 'mobilephone': '13412340005', 'leaveamount': '7008301.36', 'type': '1', 'regtime': '2019-11-05 18:38:55.0'}, 'msg': '充值成功'}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_14' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_14__14___金额2位小数点_____member_recharge______mobilephone___13412340005___amount___100_11______post______status__1__code___10001___data____id__1007__regname______pwd___25F9E794323B453885F5181F1B624D0B___mobilephone___13412340005___leaveamount___508200_22___type___1___regtime___2019_04_15_17_31_34_0____msg___充值成功____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_14' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_14'>通过</button>
+    <div id='div_pt2_14' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_14' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_14'>通过</button>
+    <div id='div_pt2_14' class="collapse in" align="left">
+    <pre>
+    
+pt2_14: 第14条用例：金额2位小数点
+预期结果： {'status': 1, 'code': '10001', 'data': {'id': 1007, 'regname': '', 'pwd': '25F9E794323B453885F5181F1B624D0B', 'mobilephone': '13412340005', 'leaveamount': '508200.22', 'type': '1', 'regtime': '2019-04-15 17:31:34.0'}, 'msg': '充值成功'}
+实际结果： {'status': 1, 'code': '10001', 'data': {'id': 179111, 'regname': '', 'pwd': '25F9E794323B453885F5181F1B624D0B', 'mobilephone': '13412340005', 'leaveamount': '7008401.47', 'type': '1', 'regtime': '2019-11-05 18:38:55.0'}, 'msg': '充值成功'}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_15' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_15__15___金额3位小数点_____member_recharge______mobilephone___13412340005___amount___100_111______post______status__0__code___20116___data__null__msg___输入金额的金额小数不能超过两位____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_15' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_15'>通过</button>
+    <div id='div_pt2_15' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_15' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_15'>通过</button>
+    <div id='div_pt2_15' class="collapse in" align="left">
+    <pre>
+    
+pt2_15: 第15条用例：金额3位小数点
+预期结果： {'status': 0, 'code': '20116', 'data': None, 'msg': '输入金额的金额小数不能超过两位'}
+实际结果： {'status': 0, 'code': '20116', 'data': None, 'msg': '输入金额的金额小数不能超过两位'}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_16' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_16__16___金额输入字符_____member_recharge______mobilephone___13412340005___amount___一百______post______status__0__code___20118___data__null__msg___请输入数字____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_16' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_16'>通过</button>
+    <div id='div_pt2_16' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_16' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_16'>通过</button>
+    <div id='div_pt2_16' class="collapse in" align="left">
+    <pre>
+    
+pt2_16: 第16条用例：金额输入字符
+预期结果： {'status': 0, 'code': '20118', 'data': None, 'msg': '请输入数字'}
+实际结果： {'status': 0, 'code': '20118', 'data': None, 'msg': '请输入数字'}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_17' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_17__17___错误格式手机_____member_recharge______mobilephone___999___amount___100______post______status__0__code___20109___data__null__msg___手机号码格式不正确____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_17' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_17'>通过</button>
+    <div id='div_pt2_17' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_17' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_17'>通过</button>
+    <div id='div_pt2_17' class="collapse in" align="left">
+    <pre>
+    
+pt2_17: 第17条用例：错误格式手机
+预期结果： {'status': 0, 'code': '20109', 'data': None, 'msg': '手机号码格式不正确'}
+实际结果： {'status': 0, 'code': '20109', 'data': None, 'msg': '手机号码格式不正确'}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_18' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_18__18___手机号对应会员不存在_____member_recharge______mobilephone___13412349999___amount___100______post______status__0__code___20104___data__null__msg___此手机号对应的会员不存在____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_18' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_18'>通过</button>
+    <div id='div_pt2_18' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_18' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_18'>通过</button>
+    <div id='div_pt2_18' class="collapse in" align="left">
+    <pre>
+    
+pt2_18: 第18条用例：手机号对应会员不存在
+预期结果： {'status': 0, 'code': '20104', 'data': None, 'msg': '此手机号对应的会员不存在'}
+实际结果： {'status': 0, 'code': '20104', 'data': None, 'msg': '此手机号对应的会员不存在'}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>TestRegister.TestHttp</td>
+    <td class="text-center">8</td>
+    <td class="text-center">8</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c3',8)" class="detail" id='c3'>详细</a></td>
+</tr>
+
+<tr id='pt3_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_1__1___post请求_正确手机号_密码_不填昵称_注册_____member_register______mobilephone___normal_register___pwd___123456789___regname_________post______status__1__code___10001___data__null__msg___注册成功____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_1'>通过</button>
+    <div id='div_pt3_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_1'>通过</button>
+    <div id='div_pt3_1' class="collapse in" align="left">
+    <pre>
+    
+pt3_1: 第1条用例：post请求，正确手机号，密码，不填昵称，注册
+请求报文： {"mobilephone":"13705066497","pwd":"123456789","regname":""}
+预期结果： {"status":1,"code":"10001","data":null,"msg":"注册成功"}
+实际结果： {"status":1,"code":"10001","data":null,"msg":"注册成功"}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_2__2___get请求_正确手机号_密码_昵称_注册_____member_register______mobilephone___normal_register___pwd___123456789___regname___Mr_Right______get______status__1__code___10001___data__null__msg___注册成功____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_2'>通过</button>
+    <div id='div_pt3_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_2'>通过</button>
+    <div id='div_pt3_2' class="collapse in" align="left">
+    <pre>
+    
+pt3_2: 第2条用例：get请求，正确手机号、密码、昵称，注册
+请求报文： {"mobilephone":"18800850196","pwd":"123456789","regname":"Mr.Right"}
+预期结果： {"status":1,"code":"10001","data":null,"msg":"注册成功"}
+实际结果： {"status":1,"code":"10001","data":null,"msg":"注册成功"}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_3__3___手机号为空_____member_register______mobilephone______pwd___123456789___regname_________post______status__0__code___20103___data__null__msg___手机号不能为空____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_3'>通过</button>
+    <div id='div_pt3_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_3'>通过</button>
+    <div id='div_pt3_3' class="collapse in" align="left">
+    <pre>
+    
+pt3_3: 第3条用例：手机号为空
+请求报文： {"mobilephone":"","pwd":"123456789","regname":""}
+预期结果： {"status":0,"code":"20103","data":null,"msg":"手机号不能为空"}
+实际结果： {"status":0,"code":"20103","data":null,"msg":"手机号不能为空"}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_4__4___密码为空_____member_register______mobilephone___normal_register___pwd______regname_________post______status__0__code___20103___data__null__msg___密码不能为空____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_4'>通过</button>
+    <div id='div_pt3_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_4'>通过</button>
+    <div id='div_pt3_4' class="collapse in" align="left">
+    <pre>
+    
+pt3_4: 第4条用例：密码为空
+请求报文： {"mobilephone":"13830469342","pwd":"","regname":""}
+预期结果： {"status":0,"code":"20103","data":null,"msg":"密码不能为空"}
+实际结果： {"status":0,"code":"20103","data":null,"msg":"密码不能为空"}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_5__5___错误格式手机号_____member_register______mobilephone___134123412351___pwd___123456789___regname_________get______status__0__code___20109___data__null__msg___手机号码格式不正确____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_5'>通过</button>
+    <div id='div_pt3_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_5'>通过</button>
+    <div id='div_pt3_5' class="collapse in" align="left">
+    <pre>
+    
+pt3_5: 第5条用例：错误格式手机号
+请求报文： {"mobilephone":"134123412351","pwd":"123456789","regname":""}
+预期结果： {"status":0,"code":"20109","data":null,"msg":"手机号码格式不正确"}
+实际结果： {"status":0,"code":"20109","data":null,"msg":"手机号码格式不正确"}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_6__6___重复注册_____member_register______mobilephone___13412340005___pwd___123456789___regname_________post______status__0__code___20110___data__null__msg___手机号码已被注册____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_6'>通过</button>
+    <div id='div_pt3_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_6'>通过</button>
+    <div id='div_pt3_6' class="collapse in" align="left">
+    <pre>
+    
+pt3_6: 第6条用例：重复注册
+请求报文： {"mobilephone":"13412340005","pwd":"123456789","regname":""}
+预期结果： {"status":0,"code":"20110","data":null,"msg":"手机号码已被注册"}
+实际结果： {"status":0,"code":"20110","data":null,"msg":"手机号码已被注册"}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_7__7___密码小于6位_____member_register______mobilephone___normal_register___pwd___12345___regname_________post______status__0__code___20108___data__null__msg___密码长度必须为6_18____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_7'>通过</button>
+    <div id='div_pt3_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_7'>通过</button>
+    <div id='div_pt3_7' class="collapse in" align="left">
+    <pre>
+    
+pt3_7: 第7条用例：密码小于6位
+请求报文： {"mobilephone":"15768626310","pwd":"12345","regname":""}
+预期结果： {"status":0,"code":"20108","data":null,"msg":"密码长度必须为6~18"}
+实际结果： {"status":0,"code":"20108","data":null,"msg":"密码长度必须为6~18"}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_8__8___密码大于18位_____member_register______mobilephone___normal_register___pwd___1234567890123456789___regname_________post______status__0__code___20108___data__null__msg___密码长度必须为6_18____</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_8'>通过</button>
+    <div id='div_pt3_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_8'>通过</button>
+    <div id='div_pt3_8' class="collapse in" align="left">
+    <pre>
+    
+pt3_8: 第8条用例：密码大于18位
+请求报文： {"mobilephone":"17379667044","pwd":"1234567890123456789","regname":""}
+预期结果： {"status":0,"code":"20108","data":null,"msg":"密码长度必须为6~18"}
+实际结果： {"status":0,"code":"20108","data":null,"msg":"密码长度必须为6~18"}
+执行结果：pass
+---------------
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='total_row' class="text-center active">
+    <td>总计</td>
+    <td>32</td>
+    <td>32</td>
+    <td>0</td>
+    <td>0</td>
+    <td>通过率：100.00%</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+    <div style=" position:fixed;right:50px; bottom:30px; width:20px; height:20px;cursor:pointer">
+    <a href="#"><span class="glyphicon glyphicon-eject" style = "font-size:30px;" aria-hidden="true">
+    </span></a></div>
+    
+</body>
+</html>
