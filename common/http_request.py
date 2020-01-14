@@ -69,25 +69,9 @@ class HttpRequest:
 
 
 if __name__=="__main__":
-    # a=HttpRequest()
-    # res=a.http_request_1('http://test.lemonban.com/futureloan/mvc/api//member/login','post',{"mobilephone":"13412340006","pwd":"123456789"})
-    # # print(res.cookies)
-    # # print(type(res.cookies))
-    # # res=a.http_request_1('http://test.lemonban.com/futureloan/mvc/api//member/login','post',{"mobilephone":"9999","pwd":"123456789"})
-    # # print(res.cookies)
-    # # if res.cookies:
-    # #     print('buweikong')
-    # # else:
-    # #     print('weikong')
-    # res_1=a.http_request_1('http://test.lemonban.com/futureloan/mvc/api//member/register','post',{"mobilephone":"13412340005","pwd":"123456789"})
-    # print(res_1.text)
-    #
-    # res_1.close()
+    res=requests.post(url='',data='')
+    print(res.text)
 
-
-    s='abcabcabc'
-    res=s.replace('a','A',2)
-    print(res)
 
 
 
